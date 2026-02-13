@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
   ImageInput({super.key});
@@ -9,8 +12,37 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  void _takePicture() {}
+  File? _selectedImage;
+  void _takePicture() async {
+    final imagePicker = ImagePicker();
+    final _pickedImage = await imagePicker.pickImage(
+      source: ImageSource.camera,
+    );
+    if (_pickedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(_pickedImage.path);
+    });
+  }
+
   Widget build(BuildContext context) {
+    Widget content = TextButton.icon(
+      onPressed: _takePicture,
+      icon: Icon(Icons.camera),
+      label: Text('Take Picture'),
+    );
+    if (_selectedImage != null) {
+      content = GestureDetector(
+        onTap: _takePicture,
+        child: Image.file(
+          _selectedImage!,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+      );
+    }
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -21,11 +53,7 @@ class _ImageInputState extends State<ImageInput> {
       height: 250,
       width: double.infinity,
       alignment: Alignment.center,
-      child: TextButton.icon(
-        onPressed: _takePicture,
-        icon: Icon(Icons.camera),
-        label: Text('Take Picture'),
-      ),
+      child: content,
     );
   }
 }

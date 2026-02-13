@@ -41,7 +41,7 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
               controller: _titleController,
             ),
             SizedBox(height: 16),
-            ImageInput(),
+            ImageInput(),//////////////////////////////////////////////////////////////////////////////////////
             SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _savePlace,
