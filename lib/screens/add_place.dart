@@ -1,4 +1,5 @@
 import 'package:favorite_places_app/providers/user_places.dart';
+import 'package:favorite_places_app/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,6 +40,8 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
               decoration: InputDecoration(labelText: 'title'),
               controller: _titleController,
             ),
+            SizedBox(height: 16),
+            ImageInput(),
             SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _savePlace,
